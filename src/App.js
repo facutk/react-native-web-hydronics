@@ -1,8 +1,9 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Icon } from 'react-native-eva-icons';
+import Slider from '@react-native-community/slider';
 import HelloWorldScreen from './HelloWorldScreen';
 
 function LightsScreen() {
@@ -30,9 +31,51 @@ function HelpScreen() {
 }
 
 function SettingsScreen() {
+  const [red, setRed] = useState(0);
+  const [green, setGreen] = useState(0);
+  const [blue, setBlue] = useState(0);
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Settings!</Text>
+      <Text>Settings! {red}</Text>
+      <Slider
+        style={{width: 320, height: 40}}
+        minimumValue={0}
+        maximumValue={255}
+        step={1}
+        minimumTrackTintColor={`#${(red).toString(16).padStart(2, 0)}0000`}
+        // minimumTrackTintColor={'#00FF00'}
+        // maximumTrackTintColor={'red'}
+        // thumbTintColor={'#2296f3'}
+        thumbTintColor={'#2296f3'}
+        value={red}
+        onSlidingComplete={setRed}
+      />
+      <Slider
+        style={{width: 320, height: 40}}
+        minimumValue={0}
+        maximumValue={255}
+        step={1}
+        minimumTrackTintColor={`#00${(green).toString(16).padStart(2, 0)}00`}
+        // minimumTrackTintColor={'#00FF00'}
+        // maximumTrackTintColor={'red'}
+        // thumbTintColor={'#2296f3'}
+        thumbTintColor={'#2296f3'}
+        value={green}
+        onSlidingComplete={setGreen}
+      />
+      <Slider
+        style={{width: 320, height: 40}}
+        minimumValue={0}
+        maximumValue={255}
+        step={1}
+        minimumTrackTintColor={`#0000${(blue).toString(16).padStart(2, 0)}`}
+        // minimumTrackTintColor={'#00FF00'}
+        // maximumTrackTintColor={'red'}
+        // thumbTintColor={'#2296f3'}
+        thumbTintColor={'#2296f3'}
+        value={blue}
+        onSlidingComplete={setBlue}
+      />
     </View>
   );
 }
@@ -46,7 +89,6 @@ export default function App() {
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             let iconName = 'star';
-            console.log(size);
 
             if (route.name === 'Inicio') {
               iconName = 'home-outline';
